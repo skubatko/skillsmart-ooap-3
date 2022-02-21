@@ -1,0 +1,14 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Gradle
+.gradle
+build/
+*.flattened-pom.xml
+
+# Eclipse
+.settings/
+.project
+.classpath
