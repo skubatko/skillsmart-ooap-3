@@ -4,6 +4,10 @@ public class Report {
     private String name;
     private String content;
 
+    // конструктор
+    public Report(String name) {
+        this.name = name;
+    }
 
     // >> запросы
     public String getName() {
@@ -22,5 +26,12 @@ public class Report {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+            "name='" + name + '\'' +
+            '}';
     }
 }
