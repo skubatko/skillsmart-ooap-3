@@ -1,5 +1,7 @@
 package ru.skubatko.dev.skillsmart.ooap3.domain;
 
+import java.util.Objects;
+
 public class User {
     private Long id;
     private String role;
@@ -7,6 +9,9 @@ public class User {
     private String login;
     private String password;
 
+    public User(String role) {
+        this.role = role;
+    }
 
     // >> запросы
     public Long getId() {
@@ -49,5 +54,28 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (!(o instanceof User)) {return false;}
+
+        User user = (User) o;
+
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", role='" + role + '\'' +
+            '}';
     }
 }
