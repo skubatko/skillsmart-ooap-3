@@ -2,6 +2,15 @@ pluginManagement {
     plugins {
         id 'io.spring.dependency-management' version "${dependencyManagementVersion}"
     }
+
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        mavenCentral()
+    }
 }
 
 rootProject.name = 'skillsmart-ooap-3'
+
+include 'dao-framework'
+include 'library-app'

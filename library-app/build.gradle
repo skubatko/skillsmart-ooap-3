@@ -1,0 +1,60 @@
+plugins {
+    id 'application'
+}
+
+group = rootProject.group
+version = '1.0.0'
+
+mainClassName = 'ru.skubatko.dev.skillsmart.ooap3.LibraryApp'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+dependencyManagement {
+    dependencies {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+        }
+    }
+}
+
+dependencies {
+    implementation project(':dao-framework')
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+test {
+    useJUnitPlatform {
+        excludeTags("it")
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+task integrationTest(type: Test) {
+    group "verification"
+    description "Integration tests"
+
+    useJUnitPlatform {
+        includeTags("it")
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
