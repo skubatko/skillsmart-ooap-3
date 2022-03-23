@@ -1,74 +1,36 @@
 plugins {
     id 'idea'
-    id 'eclipse'
-    id 'java'
-    id 'application'
-    id 'io.spring.dependency-management'
+    id 'io.spring.dependency-management' apply false
 }
 
 group = 'ru.skubatko.dev'
 description = 'OOAP training by skillsmart. Part 3. Practise'
-version = '1.0.0'
 
-repositories {
-    mavenLocal()
-    gradlePluginPortal()
-    mavenCentral()
-    jcenter()
-}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
 
-dependencyManagement {
-    dependencies {
-        imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
+    idea {
+        project {
+            languageLevel = javaVersion
+        }
+        module {
+            downloadJavadoc = true
+            downloadSources = true
         }
     }
-}
 
-dependencies {
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
+    sourceCompatibility = JavaVersion.toVersion(javaVersion)
+    targetCompatibility = JavaVersion.toVersion(javaVersion)
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-idea {
-    project {
-        languageLevel = javaVersion
-    }
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-    }
-}
-
-sourceCompatibility = JavaVersion.toVersion(javaVersion)
-targetCompatibility = JavaVersion.toVersion(javaVersion)
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    options.compilerArgs = ['-Xlint:deprecation']
-}
-
-test {
-    useJUnitPlatform {
-        excludeTags("it")
-    }
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
-
-task integrationTest(type: Test) {
-    group "verification"
-    description "Integration tests"
-
-    useJUnitPlatform {
-        includeTags("it")
-    }
-    testLogging {
-        events "passed", "skipped", "failed"
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        options.compilerArgs = ['-Xlint:deprecation']
     }
 }
