@@ -8,8 +8,7 @@ public class Book {
     private String author;
 
     // конструктор
-    public Book(Long id, String name, String author) {
-        this.id = id;
+    public Book(String name, String author) {
         this.name = name;
         this.author = author;
     }
