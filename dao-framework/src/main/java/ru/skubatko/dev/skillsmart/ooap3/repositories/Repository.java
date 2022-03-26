@@ -1,11 +1,12 @@
 package ru.skubatko.dev.skillsmart.ooap3.repositories;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Repository<T, ID> {
 
-    private final Map<ID, T> storage = new HashMap<>();
+    protected final Map<ID, T> storage = new HashMap<>();
 
     private int findStatus = FIND_NIL;
     private int updateStatus = UPDATE_NIL;
@@ -32,6 +33,9 @@ public class Repository<T, ID> {
         return entity;
     }
 
+    public Collection<T> findAll() {
+        return storage.values();
+    }
 
     // >> команды
     // постусловие: элемент добавлен в хранилище
